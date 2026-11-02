@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="햇살딸기농장의 신선한 생딸기 상품 상세페이지">
+  <title>신선한 생딸기 상품 | 햇살딸기농장</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 상품 상세페이지 전용 스타일 */
+    .detail-header{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #f1ece8}
+    .detail-header-inner{max-width:1120px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between}
+    .detail-header .brand{display:flex;align-items:center;gap:9px}
+    .detail-header .brand-mark{font-size:29px}
+    .detail-header .brand b{font-family:'Jua',sans-serif;font-size:19px}
+    .detail-header .brand small{display:block;font-size:8px;letter-spacing:1px;color:#999}
+    .detail-top{max-width:1120px;margin:34px auto 26px;padding:0 22px;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+    .detail-top-photo{height:410px;border-radius:22px;overflow:hidden;background:#fff3ed}
+    .detail-top-photo img{width:100%;height:100%;object-fit:cover}
+    .detail-info .eyebrow{color:#a4a09a;letter-spacing:2px}
+    .detail-info h1{font-family:'Jua',sans-serif;font-size:clamp(32px,4vw,48px);line-height:1.25;margin:10px 0}
+    .detail-info h1 em{font-style:normal;color:#ed3e45}
+    .detail-info .lead{color:#777;font-size:14px;line-height:1.9}
+    .detail-price{font-size:29px;font-weight:800;color:#e7353e;margin:20px 0 4px}
+    .detail-price small{font-size:12px;color:#888;font-weight:400}
+    .detail-spec{border-top:1px solid #eee;border-bottom:1px solid #eee;padding:14px 0;margin:18px 0;color:#666;font-size:13px;line-height:2}
+    .detail-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .detail-actions .btn{min-width:145px}
+    .detail-image-section{max-width:980px;margin:0 auto 70px;padding:0 20px}
+    .detail-image-heading{text-align:center;margin:36px 0 20px}
+    .detail-image-heading .eyebrow{color:#aaa}
+    .detail-image-heading h2{font-family:'Jua',sans-serif;font-size:30px;margin:5px 0}
+    .detail-image-heading h2 em{font-style:normal;color:#ed3e45}
+    .detail-long-image{width:100%;height:auto;display:block;border-radius:3px;box-shadow:0 8px 30px #583a2410}
+    .detail-image-caption{text-align:center;color:#999;font-size:11px;margin:12px 0 0}
+    .detail-bottom-cta{max-width:980px;margin:0 auto 70px;padding:30px 22px;text-align:center;background:#fff4f2;border-radius:20px}
+    .detail-bottom-cta h2{font-family:'Jua';font-size:25px;margin:0 0 8px}
+    .detail-bottom-cta p{font-size:13px;color:#777;margin:0 0 18px}
+    .detail-footer{padding:30px 20px;text-align:center;background:#fffaf8;color:#888;font-size:11px}
+    .detail-footer a{color:#4e7c3c;font-weight:700}
+    .order-modal{display:none;position:fixed;inset:0;z-index:30;align-items:center;justify-content:center;padding:18px}
+    .order-modal.open{display:flex}
+    .order-backdrop{position:absolute;inset:0;background:#171717a8}
+    .order-panel{position:relative;width:min(100%,430px);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;padding:30px}
+    .order-panel h2{font-family:'Jua';font-size:27px;margin:0 0 8px}
+    .order-panel p{font-size:12px;color:#888}
+    .order-close{position:absolute;right:16px;top:10px;border:0;background:none;font-size:29px;color:#777}
+    .order-panel label{display:block;margin:13px 0;font-size:12px;font-weight:700}
+    .order-panel input,.order-panel select{display:block;width:100%;padding:12px;margin-top:6px;border:1px solid #e7dfdc;border-radius:9px;font:inherit}
+    .order-panel .btn{width:100%;margin-top:8px}
+    @media(max-width:760px){
+      .detail-top{grid-template-columns:1fr;gap:22px;margin-top:22px}
+      .detail-top-photo{height:300px}
+      .detail-info h1{font-size:36px}
+      .detail-image-section{padding:0 12px;margin-bottom:38px}
+      .detail-image-heading h2{font-size:25px}
+      .detail-bottom-cta{margin:0 12px 40px;padding:25px 15px}
+    }
+    @media(max-width:420px){
+      .detail-header-inner{padding:10px 14px}
+      .detail-header .brand b{font-size:16px}
+      .detail-top{padding:0 15px}
+      .detail-top-photo{height:245px}
+      .detail-actions .btn{flex:1;padding:12px 10px;font-size:12px}
+      .order-panel{padding:25px 20px}
+    }
+  </style>
+</head>
+<body>
+  <header class="detail-header">
+    <div class="detail-header-inner">
+      <a class="brand" href="index.html" aria-label="햇살딸기농장 메인으로">
+        <span class="brand-mark">🍓</span>
+        <span><b>햇살딸기농장</b><small>STRAWBERRY FARM</small></span>
+      </a>
+      <a class="btn btn-outline" href="index.html#products">← 상품 목록</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- 상품 요약 영역: 대표 사진, 상품명, 가격, 구매 버튼 -->
+    <section class="detail-top">
+      <div class="detail-top-photo">
+        <img src="assets/fresh-strawberry.jpg" alt="햇살딸기농장의 신선한 생딸기">
+      </div>
+      <div class="detail-info">
+        <p class="eyebrow">FRESH STRAWBERRY</p>
+        <h1>햇살 가득<br><em>신선한 생딸기</em></h1>
+        <p class="lead">맑은 햇살과 깨끗한 자연에서 정성껏 키운 달콤한 딸기입니다. 농장에서 갓 수확한 신선함을 집에서도 만나보세요.</p>
+        <div class="detail-price">18,000원 <small>부터</small></div>
+        <div class="detail-spec">
+          품종 : 설향 딸기 (예시)<br>
+          중량 : 1kg / 2kg 선택 가능<br>
+          보관 : 수령 후 냉장 보관<br>
+          배송 : 실습용 가상 상품
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-red order-open">구매 문의하기 →</button>
+          <a class="btn btn-outline" href="index.html#products">다른 상품 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 첨부된 세로형 상세페이지 디자인 이미지를 실제 이미지로 삽입 -->
+    <section class="detail-image-section">
+      <div class="detail-image-heading">
+        <p class="eyebrow">PRODUCT DETAIL</p>
+        <h2>자연이 키운 <em>신선한 딸기</em></h2>
+        <p class="section-desc">햇살딸기농장의 재배 과정과 상품 정보를 확인해 보세요.</p>
+      </div>
+      <img class="detail-long-image" src="assets/strawberry-detail.jpg" alt="햇살 가득 생딸기 상품 상세페이지 이미지: 농장 소개, 재배 과정, 영양 정보 및 상품 안내">
+      <p class="detail-image-caption">첨부해 주신 상품 상세페이지 디자인 이미지를 그대로 사용했습니다.</p>
+    </section>
+
+    <section class="detail-bottom-cta">
+      <h2>달콤한 햇살딸기를 만나보세요 🍓</h2>
+      <p>상품 및 구매 관련 문의는 아래 버튼을 눌러 확인해 주세요.</p>
+      <button class="btn btn-red order-open">생딸기 구매 문의하기 →</button>
+    </section>
+  </main>
+
+  <footer class="detail-footer">
+    <p><a href="index.html">햇살딸기농장</a> · 자연이 키운 달콤한 행복</p>
+    <p>© 2026 햇살딸기농장. 본 사이트는 웹 제작 실습용 가상 사이트입니다.</p>
+  </footer>
+
+  <!-- 구매 문의 팝업: 실제 결제나 주문 전송은 하지 않는 실습용 기능 -->
+  <div class="order-modal" id="orderModal" aria-hidden="true">
+    <div class="order-backdrop"></div>
+    <div class="order-panel" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+      <button class="order-close" aria-label="팝업 닫기">×</button>
+      <p class="eyebrow">ORDER INQUIRY</p>
+      <h2 id="orderTitle">생딸기 구매 문의 🍓</h2>
+      <p>문의 정보를 입력하면 예시 접수 메시지가 표시됩니다.</p>
+      <form id="orderForm">
+        <label>이름<input name="name" type="text" placeholder="이름을 입력해 주세요" required></label>
+        <label>연락처<input name="phone" type="tel" placeholder="010-0000-0000" required></label>
+        <label>상품 선택
+          <select name="product"><option>생딸기 1kg - 18,000원</option><option>프리미엄 생딸기 2kg - 32,000원</option><option>생딸기 선물세트 - 25,000원</option></select>
+        </label>
+        <button class="btn btn-red" type="submit">문의 내용 확인하기</button>
+      </form>
+      <p>※ 실습용 예시로 실제 주문·결제·개인정보 전송은 진행되지 않습니다.</p>
+    </div>
+  </div>
+
+  <script>
+    // 구매 문의 버튼을 누르면 팝업 열기
+    const orderModal = document.getElementById('orderModal');
+    document.querySelectorAll('.order-open').forEach(button => {
+      button.addEventListener('click', () => {
+        orderModal.classList.add('open');
+        orderModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // 닫기 버튼, 배경, ESC 키로 팝업 닫기
+    function closeOrderModal() {
+      orderModal.classList.remove('open');
+      orderModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.querySelector('.order-close').addEventListener('click', closeOrderModal);
+    document.querySelector('.order-backdrop').addEventListener('click', closeOrderModal);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeOrderModal();
+    });
+
+    // 실습용 폼: 실제 서버로 전송하지 않고 안내창만 표시
+    document.getElementById('orderForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      alert(`${data.get('name')}님, 문의가 접수된 것으로 안내합니다.\n선택 상품: ${data.get('product')}\n\n※ 실습용 화면으로 실제 주문은 저장되지 않습니다.`);
+      event.currentTarget.reset();
+      closeOrderModal();
+    });
+  </script>
+</body>
+</html>
